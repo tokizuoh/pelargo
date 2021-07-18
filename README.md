@@ -31,10 +31,10 @@ docker-compose version 1.27.2, build 18f557f9
   
 ```
 1 done    A    Apple
-2 yet     B	   Banana
-3 yet     A	   Canyon
-4 yet     A	   Deixis
-5 yet     C	   Eeeeee
+2 yet     B    Banana
+3 yet     A    Canyon
+4 yet     A    Deixis
+5 yet     C    Eeeeee
 ```
   
 #### 1. Get trello board ID
