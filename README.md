@@ -37,7 +37,7 @@ docker-compose version 1.27.2, build 18f557f9
 5 yet     C    Eeeeee
 ```
   
-#### 1. Get trello board ID
+### 1. Get trello board ID
   
 ```go
 member, err := trelloClient.GetMember("TRELLO_USERNAME", trello.Defaults())
@@ -54,7 +54,7 @@ for i, b := range boards {
 }
 ```
   
-#### 2. Get trello list ID
+### 2. Get trello list ID
 ```go
 board, err := trelloClient.GetBoard("TRELLO_BOARD_ID", trello.Defaults())
 if err != nil {
