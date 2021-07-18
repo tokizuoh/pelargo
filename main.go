@@ -114,7 +114,6 @@ func main() {
 	if len(resp.Values) == 0 {
 		fmt.Println("No data found.")
 	} else {
-		fmt.Println("Name, Major:")
 		for _, row := range resp.Values {
 			isDone := row[1] == "done"
 			if isDone {
