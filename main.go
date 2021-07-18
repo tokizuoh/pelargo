@@ -14,6 +14,7 @@ import (
 	"google.golang.org/api/option"
 	"google.golang.org/api/sheets/v4"
 
+	"github.com/adlio/trello"
 	"github.com/joho/godotenv"
 )
 
@@ -65,6 +66,13 @@ func saveToken(path string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
+func addCard(list *trello.List, title string) error {
+	if err := list.AddCard(&trello.Card{Name: title}, trello.Defaults()); err != nil {
+		return err
+	}
+	return nil
+}
+
 func main() {
 	ctx := context.Background()
 	b, err := ioutil.ReadFile("credentials.json")
@@ -94,12 +102,30 @@ func main() {
 		log.Fatalf("Unable to retrieve data from sheet: %v", err)
 	}
 
+	trelloAPIKey := os.Getenv("TRELLO_API_KEY")
+	trelloAPIToken := os.Getenv("TRELLO_API_TOKEN")
+	trelloListID := os.Getenv("TRELLO_LIST_ID")
+	trelloClient := trello.NewClient(trelloAPIKey, trelloAPIToken)
+	list, err := trelloClient.GetList(trelloListID, trello.Defaults())
+	if err != nil {
+		log.Fatalf("Failed to get the list : %v", err)
+	}
+
 	if len(resp.Values) == 0 {
 		fmt.Println("No data found.")
 	} else {
 		fmt.Println("Name, Major:")
 		for _, row := range resp.Values {
-			fmt.Printf("%s", row)
+			isDone := row[1] == "done"
+			if isDone {
+				continue
+			}
+
+			// interface型を string として扱う
+			title := row[3].(string)
+			category := row[2].(string)
+			cardTitle := fmt.Sprintf("[%v] %v", category, title)
+			addCard(list, cardTitle)
 		}
 	}
 
