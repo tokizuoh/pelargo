@@ -102,11 +102,11 @@ if len(resp.Values) == 0 {
 }
 ```
 
-### 4. Run script
+### 5. Run script
   
 ```bash
 docker-compose exec app go run main.go
 ```
 
-### 5. Registered as a card
+### 6. Registered as a card
 Check trello.
