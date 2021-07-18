@@ -63,7 +63,7 @@ if err != nil {
 
 lists, err := board.GetLists(trello.Defaults())
 if err != nil {
-    log.Fatal(2)
+    log.Fatal(err)
 }
 for i, l := range lists {
     log.Println(i, l.ID, l.Name)
